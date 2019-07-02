@@ -1,24 +1,15 @@
 <template>
     <div class="chat">
         <div class="columns main-wrapper">
-            <div class="column is-2">
-                <chat-channels
-                    :channels="channels"
-                    :active-channel="activeChannel"
-                    @channelChanged="onChannelChanged"
-                />
-            </div>
-
-            <div class="column">
-                <chat-messages :messages="messages" />
-            </div>
-
-            <div class="column">
-                <chat-participants :participants="participants" />
-            </div>
+            <channels
+                :channels="channels"
+                :active-channel="activeChannel"
+                @channelChanged="onChannelChanged"
+            />
+            <messages :messages="messages" />
+            <participants :participants="participants" />
         </div>
-
-        <chat-new-message
+        <new-message
             :active-channel="activeChannel"
             :username="username"
         />
@@ -26,7 +17,18 @@
 </template>
 
 <script>
+    import Channels from './Channels'
+    import Messages from './Messages'
+    import NewMessage from './NewMessage'
+    import Participants from './Participants'
+
     export default {
+        components: {
+            Channels,
+            Messages,
+            NewMessage,
+            Participants,
+        },
         props: ['channels'],
         data() {
             return {

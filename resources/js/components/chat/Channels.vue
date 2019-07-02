@@ -1,5 +1,5 @@
 <template>
-    <div class="column is-2">
+    <div class="column">
         <p v-for="channel in channels"
            :key="channel.id"
            v-text="channel.name"
@@ -23,9 +23,9 @@
 <style scoped>
     .column {
         border-right: 2px dotted greenyellow;
-    }
-    .column.is-2 .column.is-2 {
-        width: 100%;
+        width: 16%;
+        flex-basis: auto;
+        flex-grow: 0;
     }
     .channel {
         cursor: pointer;
