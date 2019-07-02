@@ -34,7 +34,7 @@
 
 <style scoped>
     .column {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     .message {
         background: #eee;

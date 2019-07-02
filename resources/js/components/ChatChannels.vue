@@ -29,8 +29,10 @@
     }
     .channel {
         cursor: pointer;
+        padding: 0 4px;
     }
     .channel.active {
         background: #666;
+        color: #FFF;
     }
 </style>

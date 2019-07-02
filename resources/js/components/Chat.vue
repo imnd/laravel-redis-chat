@@ -2,7 +2,7 @@
     <div class="chat">
         <div class="columns main-wrapper">
             <div class="column is-2">
-                <vue-chat-channels
+                <chat-channels
                     :channels="channels"
                     :active-channel="activeChannel"
                     @channelChanged="onChannelChanged"
@@ -10,17 +10,18 @@
             </div>
 
             <div class="column">
-                <vue-chat-messages :messages="messages" />
+                <chat-messages :messages="messages" />
             </div>
 
-            <div class="column is-2">
-                participants
+            <div class="column">
+                <chat-participants :participants="participants" />
             </div>
         </div>
 
-        <vue-chat-new-message
+        <chat-new-message
             :active-channel="activeChannel"
-            :username="username" />
+            :username="username"
+        />
     </div>
 </template>
 
@@ -30,6 +31,7 @@
         data() {
             return {
                 activeChannel: this.channels[0].id,
+                participants: [],
                 messages: [],
                 username: 'username_' + Math.random().toString(36).substring(7),
             };
@@ -51,7 +53,8 @@
         created() {
             this.fetchMessages();
             // Connect to Socket.io
-            let socket = io(`http://localhost:3000`);
+            // let socket = io(`http://localhost:3000`);
+            let socket = io(`http://localhost:3000?username=${this.username}`);
             // For each channel...
             for (let channel of this.channels) {
                 // ... listen for new events/messages
@@ -61,6 +64,24 @@
                     }
                 });
             }
+            // Push a new "virtual" message to the messages array after someone has
+            // entered the chat. "virtual" means this message won't be persisted in the
+            // database and will be only shown once
+            socket.on(`user-joined`, data => {
+                this.participants = data.participants;
+                this.messages.push({
+                    message: `${data.username} has joined the chat.`,
+                    author_username: 'system',
+                });
+            });
+            // Same thing for after someone has disconnected from the chat
+            socket.on(`user-left`, data => {
+                this.participants = data.participants;
+                this.messages.push({
+                    message: `${data.username} has left the chat.`,
+                    author_username: 'system',
+                });
+            });
         },
     }
 </script>

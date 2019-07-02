@@ -12,7 +12,7 @@
 </head>
 <body>
     <div id="app">
-        <vue-chat :channels="{{ $channels }}"/>
+        <chat :channels="{{ $channels }}" />
     </div>
     <script src="/js/app.js"></script>
 </body>

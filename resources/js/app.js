@@ -1,9 +1,10 @@
 require('./bootstrap');
 
-Vue.component('vue-chat', require('./components/VueChat.vue'));
-Vue.component('vue-chat-channels', require('./components/VueChatChannels.vue'));
-Vue.component('vue-chat-messages', require('./components/VueChatMessages.vue'));
-Vue.component('vue-chat-new-message', require('./components/VueChatNewMessage.vue'));
+Vue.component('chat', require('./components/Chat.vue'));
+Vue.component('chat-channels', require('./components/ChatChannels.vue'));
+Vue.component('chat-messages', require('./components/ChatMessages.vue'));
+Vue.component('chat-new-message', require('./components/ChatNewMessage.vue'));
+Vue.component('chat-participants', require('./components/ChatParticipants.vue'));
 
 const app = new Vue({
     el: '#app'
